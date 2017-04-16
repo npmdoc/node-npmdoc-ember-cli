@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://ember-cli.com/"
-
-    >ember-cli (v2.12.1)</a>
+    <a href="https://ember-cli.com/">ember-cli (v2.12.1)</a>
 </h1>
 <h4>Command line tool for developing ambitious ember.js apps</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.ember-cli">module ember-cli</a><ol>
 
@@ -95,11 +88,11 @@
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">ember-cli = function (options) {
-  let UI = options.UI || require(&#x27;console-ui&#x27;);
-  let Yam = options.Yam || require(&#x27;yam&#x27;);
-  const CLI = require(&#x27;./cli&#x27;);
-  let Leek = options.Leek || require(&#x27;leek&#x27;);
-  const Project = require(&#x27;../models/project&#x27;);
+  let UI = options.UI || require('console-ui');
+  let Yam = options.Yam || require('yam');
+  const CLI = require('./cli');
+  let Leek = options.Leek || require('leek');
+  const Project = require('../models/project');
 
   configureLogger(process.env);
 
@@ -110,20 +103,20 @@
     errorStream: options.errorStream || process.stderr,
     errorLog: options.errorLog || [],
     ci: process.env.CI || (/^(dumb|emacs)$/).test(process.env.TERM),
-    writeLevel: (process.argv.indexOf(&#x27;--silent&#x27;) !== -1) ? &#x27;ERROR&#x27; : undefined,
+    writeLevel: (process.argv.indexOf('--silent') !== -1) ? 'ERROR' : undefined,
   });
 
-  let config = new Yam(&#x27;ember-cli&#x27;, {
+  let config = new Yam('ember-cli', {
     primary: Project.getProjectRoot(),
   });
 
   let leekOptions;
 
-  let disableAnalytics = (options.cliArgs &#x26;&#x26;
-    (options.cliArgs.indexOf(&#x27;--disable-analytics&#x27;) &#x3e; -1 ||
-    options.cliArgs.indexOf(&#x27;-v&#x27;) &#x3e; -1 ||
-    options.cliArgs.indexOf(&#x27;--version&#x27;) &#x3e; -1)) ||
-    config.get(&#x27;disableAnalytics&#x27;);
+  let disableAnalytics = (options.cliArgs &amp;&amp;
+    (options.cliArgs.indexOf('--disable-analytics') &gt; -1 ||
+    options.cliArgs.indexOf('-v') &gt; -1 ||
+    options.cliArgs.indexOf('--version') &gt; -1)) ||
+    config.get('disableAnalytics');
 
   let defaultLeekOptions = {
     trackingCode,
@@ -137,13 +130,13 @@
     checkForUpdates: false,
   };
 
-  if (config.get(&#x27;leekOptions&#x27;)) {
-    leekOptions = merge(defaultLeekOptions, config.get(&#x27;leekOptions&#x27;));
+  if (config.get('leekOptions')) {
+    leekOptions = merge(defaultLeekOptions, config.get('leekOptions'));
   } else {
     leekOptions = defaultLeekOptions;
   }
 
-  logger.info(&#x27;leek: %o&#x27;, leekOptions);
+  logger.info('leek: %o', leekOptions);
 
   let leek = new Leek(leekOptions);
 
@@ -151,10 +144,10 @@
     ui,
     analytics: leek,
     testing: options.testing,
-    name: options.cli ? options.cli.name : &#x27;ember&#x27;,
+    name: options.cli ? options.cli.name : 'ember',
     disableDependencyChecker: options.disableDependencyChecker,
-    root: options.cli ? options.cli.root : path.resolve(__dirname, &#x27;..&#x27;, &#x27;..&#x27;),
-    npmPackage: options.cli ? options.cli.npmPackage : &#x27;ember-cli&#x27;,
+    root: options.cli ? options.cli.root : path.resolve(__dirname, '..', '..'),
+    npmPackage: options.cli ? options.cli.npmPackage : 'ember-cli',
     initInstrumentation,
   });
 
@@ -197,3 +190,4 @@
     ]
 </div>
 </div>
+</body></html>

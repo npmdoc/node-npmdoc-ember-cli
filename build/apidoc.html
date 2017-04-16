@@ -61,12 +61,133 @@
 
     <li class="apidocModuleLi"><a href="#apidoc.module.ember-cli">module ember-cli</a><ol>
 
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ember-cli.ember-cli">
+            function <span class="apidocSignatureSpan"></span>ember-cli
+            <span class="apidocSignatureSpan">(options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.ember-cli.toString">
+            function <span class="apidocSignatureSpan">ember-cli.</span>toString
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
     </ol></li>
 
 </ol></div>
 
 <div class="apidocSectionDiv">
 <h1><a href="#apidoc.module.ember-cli" id="apidoc.module.ember-cli">module ember-cli</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.ember-cli.ember-cli" id="apidoc.element.ember-cli.ember-cli">
+        function <span class="apidocSignatureSpan"></span>ember-cli
+        <span class="apidocSignatureSpan">(options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ember-cli = function (options) {
+  let UI = options.UI || require(&#x27;console-ui&#x27;);
+  let Yam = options.Yam || require(&#x27;yam&#x27;);
+  const CLI = require(&#x27;./cli&#x27;);
+  let Leek = options.Leek || require(&#x27;leek&#x27;);
+  const Project = require(&#x27;../models/project&#x27;);
+
+  configureLogger(process.env);
+
+  // TODO: one UI (lib/models/project.js also has one for now...)
+  let ui = new UI({
+    inputStream: options.inputStream,
+    outputStream: options.outputStream,
+    errorStream: options.errorStream || process.stderr,
+    errorLog: options.errorLog || [],
+    ci: process.env.CI || (/^(dumb|emacs)$/).test(process.env.TERM),
+    writeLevel: (process.argv.indexOf(&#x27;--silent&#x27;) !== -1) ? &#x27;ERROR&#x27; : undefined,
+  });
+
+  let config = new Yam(&#x27;ember-cli&#x27;, {
+    primary: Project.getProjectRoot(),
+  });
+
+  let leekOptions;
+
+  let disableAnalytics = (options.cliArgs &#x26;&#x26;
+    (options.cliArgs.indexOf(&#x27;--disable-analytics&#x27;) &#x3e; -1 ||
+    options.cliArgs.indexOf(&#x27;-v&#x27;) &#x3e; -1 ||
+    options.cliArgs.indexOf(&#x27;--version&#x27;) &#x3e; -1)) ||
+    config.get(&#x27;disableAnalytics&#x27;);
+
+  let defaultLeekOptions = {
+    trackingCode,
+    globalName: name,
+    name: clientId(),
+    version,
+    silent: disableAnalytics,
+  };
+
+  let defaultUpdateCheckerOptions = {
+    checkForUpdates: false,
+  };
+
+  if (config.get(&#x27;leekOptions&#x27;)) {
+    leekOptions = merge(defaultLeekOptions, config.get(&#x27;leekOptions&#x27;));
+  } else {
+    leekOptions = defaultLeekOptions;
+  }
+
+  logger.info(&#x27;leek: %o&#x27;, leekOptions);
+
+  let leek = new Leek(leekOptions);
+
+  let cli = new CLI({
+    ui,
+    analytics: leek,
+    testing: options.testing,
+    name: options.cli ? options.cli.name : &#x27;ember&#x27;,
+    disableDependencyChecker: options.disableDependencyChecker,
+    root: options.cli ? options.cli.root : path.resolve(__dirname, &#x27;..&#x27;, &#x27;..&#x27;),
+    npmPackage: options.cli ? options.cli.npmPackage : &#x27;ember-cli&#x27;,
+    initInstrumentation,
+  });
+
+  let project = Project.projectOrnullProject(ui, cli);
+
+  let environment = {
+    tasks: loadTasks(),
+    cliArgs: options.cliArgs,
+    commands: loadCommands(),
+    project,
+    settings: merge(defaultUpdateCheckerOptions, config.getAll()),
+  };
+
+  return cli.run(environment);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.element.ember-cli.toString" id="apidoc.element.ember-cli.toString">
+        function <span class="apidocSignatureSpan">ember-cli.</span>toString
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">toString = function () {
+    return toString;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
 
 </div>
 
