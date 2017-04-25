@@ -1,7 +1,12 @@
-# api documentation for  [ember-cli (v2.12.1)](https://ember-cli.com/)  [![npm package](https://img.shields.io/npm/v/npmdoc-ember-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-ember-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-ember-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-ember-cli)
+# npmdoc-ember-cli
+
+#### basic api documentation for  [ember-cli (v2.12.2)](https://ember-cli.com/)  [![npm package](https://img.shields.io/npm/v/npmdoc-ember-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-ember-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-ember-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-ember-cli)
+
 #### Command line tool for developing ambitious ember.js apps
 
 [![NPM](https://nodei.co/npm/ember-cli.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/ember-cli)
+
+- [https://npmdoc.github.io/node-npmdoc-ember-cli/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-ember-cli/build/apidoc.html)
 
 [![apidoc](https://npmdoc.github.io/node-npmdoc-ember-cli/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-ember-cli/build/apidoc.html)
 
@@ -135,8 +140,8 @@
     },
     "directories": {},
     "dist": {
-        "shasum": "33dd9341677f67f29bc0e286b129877ee15e5bcb",
-        "tarball": "https://registry.npmjs.org/ember-cli/-/ember-cli-2.12.1.tgz"
+        "shasum": "eccae6359e5d4e49d509e6391dcdf1961848377a",
+        "tarball": "https://registry.npmjs.org/ember-cli/-/ember-cli-2.12.2.tgz"
     },
     "engines": {
         "node": "^4.5 || 6.* || 7.*"
@@ -205,117 +210,8 @@
         "test:debug": "node debug tests/runner"
     },
     "trackingCode": "UA-49225444-1",
-    "version": "2.12.1"
+    "version": "2.12.2"
 }
-```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module ember-cli](#apidoc.module.ember-cli)
-1.  [function <span class="apidocSignatureSpan"></span>ember-cli (options)](#apidoc.element.ember-cli.ember-cli)
-1.  [function <span class="apidocSignatureSpan">ember-cli.</span>toString ()](#apidoc.element.ember-cli.toString)
-
-
-
-# <a name="apidoc.module.ember-cli"></a>[module ember-cli](#apidoc.module.ember-cli)
-
-#### <a name="apidoc.element.ember-cli.ember-cli"></a>[function <span class="apidocSignatureSpan"></span>ember-cli (options)](#apidoc.element.ember-cli.ember-cli)
-- description and source-code
-```javascript
-ember-cli = function (options) {
-  let UI = options.UI || require('console-ui');
-  let Yam = options.Yam || require('yam');
-  const CLI = require('./cli');
-  let Leek = options.Leek || require('leek');
-  const Project = require('../models/project');
-
-  configureLogger(process.env);
-
-  // TODO: one UI (lib/models/project.js also has one for now...)
-  let ui = new UI({
-    inputStream: options.inputStream,
-    outputStream: options.outputStream,
-    errorStream: options.errorStream || process.stderr,
-    errorLog: options.errorLog || [],
-    ci: process.env.CI || (/^(dumb|emacs)$/).test(process.env.TERM),
-    writeLevel: (process.argv.indexOf('--silent') !== -1) ? 'ERROR' : undefined,
-  });
-
-  let config = new Yam('ember-cli', {
-    primary: Project.getProjectRoot(),
-  });
-
-  let leekOptions;
-
-  let disableAnalytics = (options.cliArgs &&
-    (options.cliArgs.indexOf('--disable-analytics') > -1 ||
-    options.cliArgs.indexOf('-v') > -1 ||
-    options.cliArgs.indexOf('--version') > -1)) ||
-    config.get('disableAnalytics');
-
-  let defaultLeekOptions = {
-    trackingCode,
-    globalName: name,
-    name: clientId(),
-    version,
-    silent: disableAnalytics,
-  };
-
-  let defaultUpdateCheckerOptions = {
-    checkForUpdates: false,
-  };
-
-  if (config.get('leekOptions')) {
-    leekOptions = merge(defaultLeekOptions, config.get('leekOptions'));
-  } else {
-    leekOptions = defaultLeekOptions;
-  }
-
-  logger.info('leek: %o', leekOptions);
-
-  let leek = new Leek(leekOptions);
-
-  let cli = new CLI({
-    ui,
-    analytics: leek,
-    testing: options.testing,
-    name: options.cli ? options.cli.name : 'ember',
-    disableDependencyChecker: options.disableDependencyChecker,
-    root: options.cli ? options.cli.root : path.resolve(__dirname, '..', '..'),
-    npmPackage: options.cli ? options.cli.npmPackage : 'ember-cli',
-    initInstrumentation,
-  });
-
-  let project = Project.projectOrnullProject(ui, cli);
-
-  let environment = {
-    tasks: loadTasks(),
-    cliArgs: options.cliArgs,
-    commands: loadCommands(),
-    project,
-    settings: merge(defaultUpdateCheckerOptions, config.getAll()),
-  };
-
-  return cli.run(environment);
-}
-```
-- example usage
-```shell
-n/a
-```
-
-#### <a name="apidoc.element.ember-cli.toString"></a>[function <span class="apidocSignatureSpan">ember-cli.</span>toString ()](#apidoc.element.ember-cli.toString)
-- description and source-code
-```javascript
-toString = function () {
-    return toString;
-}
-```
-- example usage
-```shell
-n/a
 ```
 
 
